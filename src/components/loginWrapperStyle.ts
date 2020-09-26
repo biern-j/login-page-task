@@ -17,13 +17,10 @@ export const LoginWrap = styled.section`
 `;
 
 export const LoginPictureWrap = styled.picture`
-  width: 55%;
+  width: 50%;
+  margin-right: 5%;
 `;
 
 export const LoginPicture = styled.img`
   width: 100%;
-`;
-
-export const LoginForm = styled.form`
-  width: 45%;
 `;
