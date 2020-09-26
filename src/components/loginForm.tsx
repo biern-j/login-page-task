@@ -27,6 +27,8 @@ import {
   passwordValidationRegex,
 } from "../assets/validation";
 
+import { loginUserRequest } from "../assets/mockServer";
+
 export const LoginForm = () => {
   const [passwordInput, setPasswordInput] = useState({
     input: "",
@@ -114,6 +116,10 @@ export const LoginForm = () => {
       <ButtonWrapper>
         <Button
           disabled={emailInput.validationAlert || passwordInput.validationAlert}
+          onClick={(e) => {
+            e.preventDefault();
+            loginUserRequest(emailInput.input, passwordInput.input).catch();
+          }}
         >
           Login
         </Button>
