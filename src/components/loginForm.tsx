@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faLongArrowAltRight,
   faLock,
   faEnvelope,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons'
 
 import {
   Form,
@@ -13,29 +13,26 @@ import {
   FocusInput,
   SymbolInputWrapper,
   Input,
-} from "./loginFormStyle";
-import { ButtonWrapper, Button } from "./button";
-import {
-  TextWrapper,
-  TextLink,
-  TextCenter,
-  TextCenterTop,
-} from "../indexStyle";
+} from './loginFormStyle'
+import { ButtonWrapper, InputButton } from './button'
+import { TextWrapper, TextLink, TextCenter, TextCenterTop } from '../indexStyle'
 
 import {
   emailValidationRegex,
   passwordValidationRegex,
-} from "../assets/validation";
+} from '../assets/validation'
+
+import { loginUserRequest } from '../assets/mockServer'
 
 export const LoginForm = () => {
   const [passwordInput, setPasswordInput] = useState({
-    input: "",
+    input: '',
     validationAlert: false,
-  });
+  })
   const [emailInput, setEmailInput] = useState({
-    input: "",
+    input: '',
     validationAlert: false,
-  });
+  })
 
   return (
     <Form>
@@ -44,7 +41,7 @@ export const LoginForm = () => {
       </FormTitle>
       <FormGroup
         validationAlert={emailInput.validationAlert}
-        validationMessage={"Valid email is required: ex@abc.xyz"}
+        validationMessage={'Valid email is required: ex@abc.xyz'}
       >
         <Input
           id="email"
@@ -53,21 +50,21 @@ export const LoginForm = () => {
           placeholder="Email"
           required
           onChange={(e) => {
-            e.preventDefault();
+            e.preventDefault()
             console.log(
-              "validation(e.target.value, emailValidationRegex)",
-              validation(e.target.value, emailValidationRegex)
-            );
+              'validation(e.target.value, emailValidationRegex)',
+              validation(e.target.value, emailValidationRegex),
+            )
             if (validation(e.target.value, emailValidationRegex)) {
               setEmailInput({
                 input: e.target.value,
                 validationAlert: false,
-              });
+              })
             } else {
               setEmailInput({
                 input: e.target.value,
                 validationAlert: true,
-              });
+              })
             }
           }}
         />
@@ -79,7 +76,7 @@ export const LoginForm = () => {
 
       <FormGroup
         validationAlert={passwordInput.validationAlert}
-        validationMessage={"Password is required"}
+        validationMessage={'Password is required'}
       >
         <Input
           id="password"
@@ -88,21 +85,21 @@ export const LoginForm = () => {
           placeholder="Password"
           required
           onChange={(e) => {
-            e.preventDefault();
+            e.preventDefault()
             console.log(
-              "password validation",
-              validation(e.target.value, passwordValidationRegex)
-            );
+              'password validation',
+              validation(e.target.value, passwordValidationRegex),
+            )
             if (validation(e.target.value, passwordValidationRegex)) {
               setPasswordInput({
                 input: e.target.value,
                 validationAlert: false,
-              });
+              })
             } else {
               setPasswordInput({
                 input: e.target.value,
                 validationAlert: true,
-              });
+              })
             }
           }}
         />
@@ -112,11 +109,17 @@ export const LoginForm = () => {
         </SymbolInputWrapper>
       </FormGroup>
       <ButtonWrapper>
-        <Button
+        <InputButton
+          type="button"
+          role="button"
+          value="Login"
+          name="loginUser"
           disabled={emailInput.validationAlert || passwordInput.validationAlert}
-        >
-          Login
-        </Button>
+          onClick={(e) => {
+            e.preventDefault()
+            loginUserRequest(emailInput.input, passwordInput.input).catch()
+          }}
+        />
       </ButtonWrapper>
 
       <TextCenter>
@@ -131,8 +134,8 @@ export const LoginForm = () => {
         </TextLink>
       </TextCenterTop>
     </Form>
-  );
-};
+  )
+}
 
 const validation = (input: string, validationRegex: RegExp) =>
-  validationRegex.test(input.trim());
+  validationRegex.test(input.trim())
