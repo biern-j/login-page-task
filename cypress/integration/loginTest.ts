@@ -1,4 +1,7 @@
 describe("Login", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:5000");
+  });
   it("User should login successfully", () => {
     logInTest("successTest@gmail.com", "Success123");
     cy.get('[data-cy="welcome-title"]').contains("successTest@gmail.com");
@@ -18,7 +21,6 @@ describe("Login", () => {
 });
 
 const logInTest = (userEmail: string, userPassword: string) => {
-  cy.visit("http://0.0.0.0:8080");
   cy.get('[data-cy="email-input"]').type(userEmail);
   cy.get('[data-cy="password-input"]').type(userPassword);
   cy.get('[data-cy="submit-login"]').click();

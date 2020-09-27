@@ -6,6 +6,7 @@ import {
   LoginPictureWrap,
   LoginPicture,
 } from "./loginWrapperStyle";
+
 import { LoginForm } from "./loginForm";
 import { LoginMessageSuccess } from "./loginMessageSuccess";
 
@@ -19,7 +20,7 @@ export const LoginWidget = () => {
         ) : (
           <>
             <LoginPictureWrap>
-              <LoginPicture src="./src/assets/img-01.png" alt="login-img" />
+              <LoginPicture src="./assets/img-01.png" alt="login-img" />
             </LoginPictureWrap>
             <LoginForm loginResult={(result: string) => setUserLogin(result)} />
           </>

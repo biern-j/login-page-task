@@ -36,7 +36,7 @@ export const LoginWrap = styled.section`
 
   @media only screen and (min-device-width: 375px) {
     padding: 2rem 1rem;
-    width: 80%;
+    width: 95%;
   }
 
   @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {

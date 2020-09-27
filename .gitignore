@@ -2,3 +2,5 @@ node_modules
 dist
 screenshots
 videos
+# Local Netlify folder
+.netlify

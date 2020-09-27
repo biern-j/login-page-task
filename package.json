@@ -13,7 +13,7 @@
     "create": "webpack",
     "start": "webpack-dev-server --open",
     "cy:run": "cypress run",
-    "deploy:test": "npm run create & npx netlify deploy --dir=dist",
+    "deploy:test": "npm run create && npx netlify deploy --dir=dist",
     "deploy:prod": "npx netlify deploy --dir=dist --prod"
   },
   "repository": {

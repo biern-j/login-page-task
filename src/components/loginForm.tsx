@@ -14,7 +14,7 @@ import {
   FocusInput,
   Input,
 } from "./loginFormStyle";
-import { ButtonWrapper, InputButton, SymbolLoaderWrapper } from "./button";
+import { ButtonWrapper, InputButton, SymbolLoaderWrapper } from "./buttonStyle";
 import { ValidationMessage } from "./alertValidationStyle";
 import { SymbolInputWrapper } from "./symbolStyle";
 import {
@@ -54,6 +54,7 @@ export const LoginForm = ({ loginResult }: PropsType) => {
       <FormTitle>
         <span>Member Login</span>
       </FormTitle>
+
       <FormGroup
         validationAlert={emailInput.validationAlert}
         validationMessage={"Valid email is required: ex@abc.xyz"}
@@ -115,6 +116,7 @@ export const LoginForm = ({ loginResult }: PropsType) => {
           <FontAwesomeIcon icon={faLock} aria-hidden="true" />
         </SymbolInputWrapper>
       </FormGroup>
+
       {formState === "unauthorized" && (
         <TextCenter>
           <ValidationMessage data-cy="unauthorized-message">
@@ -129,6 +131,7 @@ export const LoginForm = ({ loginResult }: PropsType) => {
           </ValidationMessage>
         </TextCenter>
       )}
+
       <ButtonWrapper>
         <InputButton
           data-cy="submit-login"
@@ -140,13 +143,14 @@ export const LoginForm = ({ loginResult }: PropsType) => {
           disabled={emailInput.validationAlert || passwordInput.validationAlert}
           onClick={async (e) => {
             e.preventDefault();
+
             setFormState("loading");
+
             const response = await loginUserRequest(
               emailInput.input,
               passwordInput.input
             ).catch(() => undefined);
-            console.log("emailInput.input ", emailInput.input);
-            console.log("response ", response);
+
             if (response?.status === 200) {
               loginResult(emailInput.input);
             } else if (response?.status === 401) {

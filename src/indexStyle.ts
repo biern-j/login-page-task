@@ -1,30 +1,29 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-/* Font */
 
+/* Font */
 @font-face {
   font-family: Poppins-Regular;
-  src: url('./src/assets/fonts/poppins/Poppins-Regular.ttf'); 
+  src: url('./assets/fonts/poppins/Poppins-Regular.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('./src/assets/fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('./assets/fonts/poppins/Poppins-Bold.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('./src/assets/fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('./assets/fonts/poppins/Poppins-Medium.ttf'); 
 }
 
 @font-face {
   font-family: Montserrat-Bold;
-  src: url('./src/assets/fonts/montserrat/Montserrat-Bold.ttf'); 
+  src: url('./assets/fonts/montserrat/Montserrat-Bold.ttf'); 
 }
 
 /* Base */
-
 *,
 *::after,
 *::before {
@@ -48,7 +47,6 @@ body {
 }
 
 /*Typography normalization */
-
 a {
 	font-family: Poppins-Regular;
 	font-size: 1.4rem;
