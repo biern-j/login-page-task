@@ -6,15 +6,15 @@ const responseOK =
 const availableRedirection =
   "https://run.mocky.io/v3/15814784-a124-4f81-9229-9ca7acb3b465";
 
-// Response 400 unauthorized
+// Response 401 unauthorized
 const userUnauthorized =
   "https://run.mocky.io/v3/480d095a-37ce-441f-b67d-3ab781c0620f";
 
-// Response 503
+// Response 500
 const serverNoResponse =
   "https://run.mocky.io/v3/00f4a04b-ac18-4bb0-ab17-3fd078708ec5";
 
-export const responses = [
+export const requests = [
   responseOK,
   availableRedirection,
   userUnauthorized,
@@ -26,18 +26,19 @@ export const loginUserRequest = async (
   userPassword: string
 ) => {
   const data = { userEmail, userPassword };
-  const response = await fetch(responseOK, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
+  let requestUrl;
+  if (userPassword === "Error123") {
+    requestUrl = serverNoResponse;
+  } else if (userPassword === "Invalid123") {
+    requestUrl = userUnauthorized;
+  } else {
+    requestUrl = responseOK;
+  }
+  return await fetch(requestUrl, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+    body: JSON.stringify(data),
   });
-  return response.json();
 };

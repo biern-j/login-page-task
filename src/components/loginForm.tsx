@@ -4,6 +4,7 @@ import {
   faLongArrowAltRight,
   faLock,
   faEnvelope,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -14,7 +15,8 @@ import {
   SymbolInputWrapper,
   Input,
 } from "./loginFormStyle";
-import { ButtonWrapper, InputButton } from "./button";
+import { ButtonWrapper, InputButton, SymbolLoaderWrapper } from "./button";
+import { ValidationMessage } from "./alertValidationStyle";
 import {
   TextWrapper,
   TextLink,
@@ -30,7 +32,13 @@ import {
 
 import { loginUserRequest } from "../lib/mockServer";
 
-export const LoginForm = () => {
+type PropsType = {
+  loginResult: (response: string) => void;
+};
+
+type FormState = "clean" | "loading" | "unauthorized" | "error";
+
+export const LoginForm = ({ loginResult }: PropsType) => {
   const [passwordInput, setPasswordInput] = useState({
     input: "",
     validationAlert: false,
@@ -39,10 +47,7 @@ export const LoginForm = () => {
     input: "",
     validationAlert: false,
   });
-
-  // state clean form
-  // state loading on submit form
-  // state error: unauthorized / server error
+  const [formState, setFormState] = useState<FormState>("clean");
 
   return (
     <Form>
@@ -54,6 +59,7 @@ export const LoginForm = () => {
         validationMessage={"Valid email is required: ex@abc.xyz"}
       >
         <Input
+          value={emailInput.input}
           id="email"
           type="text"
           name="email"
@@ -64,6 +70,7 @@ export const LoginForm = () => {
 
             const isValid = validateRegex(e.target.value, emailValidationRegex);
 
+            setFormState("clean");
             setEmailInput({
               input: e.target.value,
               validationAlert: !isValid,
@@ -81,6 +88,7 @@ export const LoginForm = () => {
         validationMessage={"Password is required"}
       >
         <Input
+          value={passwordInput.input}
           id="password"
           type="password"
           name="passport"
@@ -92,6 +100,7 @@ export const LoginForm = () => {
               e.target.value,
               passwordValidationRegex
             );
+            setFormState("clean");
 
             setPasswordInput({
               input: e.target.value,
@@ -104,18 +113,48 @@ export const LoginForm = () => {
           <FontAwesomeIcon icon={faLock} aria-hidden="true" />
         </SymbolInputWrapper>
       </FormGroup>
+      {formState === "unauthorized" && (
+        <TextCenter>
+          <ValidationMessage>Wrong email or password</ValidationMessage>
+        </TextCenter>
+      )}
+      {formState === "error" && (
+        <TextCenter>
+          <ValidationMessage>Oops! Unexpected error</ValidationMessage>
+        </TextCenter>
+      )}
       <ButtonWrapper>
         <InputButton
+          loading={formState === "loading"}
           type="button"
           role="button"
-          value="Login"
+          value={formState === "loading" ? "Loading..." : "Login"}
           name="loginUser"
           disabled={emailInput.validationAlert || passwordInput.validationAlert}
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
-            loginUserRequest(emailInput.input, passwordInput.input).catch();
+            setFormState("loading");
+            const response = await loginUserRequest(
+              emailInput.input,
+              passwordInput.input
+            ).catch(() => undefined);
+            console.log("emailInput.input ", emailInput.input);
+            console.log("response ", response);
+            if (response?.status === 200) {
+              loginResult(emailInput.input);
+            } else if (response?.status === 401) {
+              setPasswordInput({ input: "", validationAlert: false });
+              setFormState("unauthorized");
+            } else {
+              setFormState("error");
+            }
           }}
         />
+        {formState === "loading" && (
+          <SymbolLoaderWrapper>
+            <FontAwesomeIcon icon={faSpinner} aria-hidden="true" />
+          </SymbolLoaderWrapper>
+        )}
       </ButtonWrapper>
 
       <TextCenter>
