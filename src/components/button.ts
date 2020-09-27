@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const ButtonWrapper = styled.div`
   width: 100%;
@@ -10,9 +10,9 @@ export const ButtonWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   padding-top: 2rem;
-`;
+`
 
-export const Button = styled.button`
+export const InputButton = styled.input`
   font-family: Montserrat-Bold;
   font-size: 1.5rem;
   line-height: 1.5;
@@ -31,6 +31,7 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   padding: 0 2.5rem;
+  cursor: pointer;
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -40,4 +41,7 @@ export const Button = styled.button`
   &:hover {
     background: #333333;
   }
-`;
+  &:focus {
+    background: #333333;
+  }
+`

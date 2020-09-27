@@ -14,7 +14,7 @@ import {
   SymbolInputWrapper,
   Input,
 } from "./loginFormStyle";
-import { ButtonWrapper, Button } from "./button";
+import { ButtonWrapper, InputButton } from "./button";
 import {
   TextWrapper,
   TextLink,
@@ -25,9 +25,10 @@ import {
 import {
   emailValidationRegex,
   passwordValidationRegex,
-} from "../assets/validation";
+  validateRegex,
+} from "../lib/validation";
 
-import { loginUserRequest } from "../assets/mockServer";
+import { loginUserRequest } from "../lib/mockServer";
 
 export const LoginForm = () => {
   const [passwordInput, setPasswordInput] = useState({
@@ -38,6 +39,10 @@ export const LoginForm = () => {
     input: "",
     validationAlert: false,
   });
+
+  // state clean form
+  // state loading on submit form
+  // state error: unauthorized / server error
 
   return (
     <Form>
@@ -56,21 +61,13 @@ export const LoginForm = () => {
           required
           onChange={(e) => {
             e.preventDefault();
-            console.log(
-              "validation(e.target.value, emailValidationRegex)",
-              validation(e.target.value, emailValidationRegex)
-            );
-            if (validation(e.target.value, emailValidationRegex)) {
-              setEmailInput({
-                input: e.target.value,
-                validationAlert: false,
-              });
-            } else {
-              setEmailInput({
-                input: e.target.value,
-                validationAlert: true,
-              });
-            }
+
+            const isValid = validateRegex(e.target.value, emailValidationRegex);
+
+            setEmailInput({
+              input: e.target.value,
+              validationAlert: !isValid,
+            });
           }}
         />
         <FocusInput htmlFor="email">&nbsp;</FocusInput>
@@ -91,21 +88,15 @@ export const LoginForm = () => {
           required
           onChange={(e) => {
             e.preventDefault();
-            console.log(
-              "password validation",
-              validation(e.target.value, passwordValidationRegex)
+            const isValid = validateRegex(
+              e.target.value,
+              passwordValidationRegex
             );
-            if (validation(e.target.value, passwordValidationRegex)) {
-              setPasswordInput({
-                input: e.target.value,
-                validationAlert: false,
-              });
-            } else {
-              setPasswordInput({
-                input: e.target.value,
-                validationAlert: true,
-              });
-            }
+
+            setPasswordInput({
+              input: e.target.value,
+              validationAlert: !isValid,
+            });
           }}
         />
         <FocusInput htmlFor="password">&nbsp;</FocusInput>
@@ -114,15 +105,17 @@ export const LoginForm = () => {
         </SymbolInputWrapper>
       </FormGroup>
       <ButtonWrapper>
-        <Button
+        <InputButton
+          type="button"
+          role="button"
+          value="Login"
+          name="loginUser"
           disabled={emailInput.validationAlert || passwordInput.validationAlert}
           onClick={(e) => {
             e.preventDefault();
             loginUserRequest(emailInput.input, passwordInput.input).catch();
           }}
-        >
-          Login
-        </Button>
+        />
       </ButtonWrapper>
 
       <TextCenter>
@@ -139,6 +132,3 @@ export const LoginForm = () => {
     </Form>
   );
 };
-
-const validation = (input: string, validationRegex: RegExp) =>
-  validationRegex.test(input.trim());
