@@ -9,7 +9,8 @@ export type LoginProps = {
 export const LoginMessageSuccess = ({ userLogin }: LoginProps) => {
   return (
     <LoginUserTitle>
-      Hello <LoginUserSuccess>{userLogin}</LoginUserSuccess>
+      Hello{" "}
+      <LoginUserSuccess data-cy="welcome-title">{userLogin}</LoginUserSuccess>
       <span>You login Success!</span>
     </LoginUserTitle>
   );

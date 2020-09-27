@@ -59,6 +59,7 @@ export const LoginForm = ({ loginResult }: PropsType) => {
         validationMessage={"Valid email is required: ex@abc.xyz"}
       >
         <Input
+          data-cy="email-input"
           value={emailInput.input}
           id="email"
           type="text"
@@ -88,6 +89,7 @@ export const LoginForm = ({ loginResult }: PropsType) => {
         validationMessage={"Password is required"}
       >
         <Input
+          data-cy="password-input"
           value={passwordInput.input}
           id="password"
           type="password"
@@ -115,16 +117,21 @@ export const LoginForm = ({ loginResult }: PropsType) => {
       </FormGroup>
       {formState === "unauthorized" && (
         <TextCenter>
-          <ValidationMessage>Wrong email or password</ValidationMessage>
+          <ValidationMessage data-cy="unauthorized-message">
+            Wrong email or password
+          </ValidationMessage>
         </TextCenter>
       )}
       {formState === "error" && (
         <TextCenter>
-          <ValidationMessage>Oops! Unexpected error</ValidationMessage>
+          <ValidationMessage data-cy="unexpected-error-message">
+            Oops! Unexpected error
+          </ValidationMessage>
         </TextCenter>
       )}
       <ButtonWrapper>
         <InputButton
+          data-cy="submit-login"
           loading={formState === "loading"}
           type="button"
           role="button"
