@@ -1,9 +1,23 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import { AlertValidateInput } from "./alertValidationStyle";
+import { SymbolInputWrapper } from "./symbolStyle";
 
 export const Form = styled.form`
-  width: 45%;
+  width: 100%;
+
+  @media only screen and (min-device-width: 375px) {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    width: 40%;
+    margin: 5%;
+  }
+  @media only screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    width: 50%;
+  }
 `;
 
 export const FormGroup = styled.div<{
@@ -24,7 +38,7 @@ export const FormGroup = styled.div<{
 export const FormTitle = styled.h1`
   span {
     font-family: Poppins-Bold;
-    font-size: 24px;
+    font-size: 2.4rem;
     color: #333333;
     line-height: 1.2;
     text-align: center;
@@ -35,35 +49,10 @@ export const FormTitle = styled.h1`
   }
 `;
 
-export const SymbolInputWrapper = styled.span`
-  font-size: 15px;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  border-radius: 25px;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding-left: 35px;
-  pointer-events: none;
-  color: #666666;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-`;
-
 export const FocusInput = styled.label`
   display: block;
   position: absolute;
-  border-radius: 25px;
+  border-radius: 2.5rem;
   bottom: 0;
   left: 0;
   z-index: -1;
@@ -111,7 +100,7 @@ export const Input = styled.input`
 
   &:focus + ${FocusInput} + ${SymbolInputWrapper} {
     color: #57b846;
-    padding-left: 28px;
+    padding-left: 2.8rem;
   }
 
   &:focus:invalid {

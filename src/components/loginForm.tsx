@@ -12,11 +12,11 @@ import {
   FormGroup,
   FormTitle,
   FocusInput,
-  SymbolInputWrapper,
   Input,
 } from "./loginFormStyle";
 import { ButtonWrapper, InputButton, SymbolLoaderWrapper } from "./button";
 import { ValidationMessage } from "./alertValidationStyle";
+import { SymbolInputWrapper } from "./symbolStyle";
 import {
   TextWrapper,
   TextLink,
