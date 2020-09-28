@@ -1,12 +1,12 @@
 # login-page-task
 
-This is Login page form: [https://login-page-task.netlify.app](https://login-page-task.netlify.app/)
+This is Login page form: [login-page-task](https://login-page-task.netlify.app/)
 
 You can access page in desktops, tablets (iPad vertical) and phones (>375px).
 
 You can login via email and password. 
 
-The validated password contain 8+ chars, 1 number, one upper letter.
+The validated password contains 8+ chars, 1 number, one upper letter.
 
 ## Testing cases
 
@@ -27,7 +27,7 @@ The validated password contain 8+ chars, 1 number, one upper letter.
 
 ## Project deployment
 
-Page is deployed by Netlify and is avaliable via link [https://login-page-task.netlify.app](https://login-page-task.netlify.app/)
+Page is deployed by Netlify and is avaliable via link [login-page-task](https://login-page-task.netlify.app/)
 
 ## Project description
 
