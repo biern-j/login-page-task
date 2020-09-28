@@ -31,10 +31,12 @@ Page is deployed by Netlify and is avaliable via link [login-page-task](https://
 
 ## Project description
 
-**Languages:** Application is build in **React** and **TypeScript**. For style was use js-in-css framework **Styled-components**.
+**Technologies:** Application is build in **React**, **TypeScript**, **Webpack** and **Styled-components**.
 
-**Web development:** Webpack
+**Tests:** The e2e test for each test scenario was written in **Cypress**.
 
-**Tests:** The e2e test for each test case was written in **Cypress**
+**CI:** Continuous integration was implemented via **github CI** where with each commit the application is built and e2e tested with cypress.
 
-**CI:** Continues integration was implemented via **github CI** where with each commit the application is built and tested by e2e testing.
+## ToDo
+* Optimize bundle size.
+* Add unit tests for input validation functions.
